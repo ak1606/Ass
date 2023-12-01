@@ -1,0 +1,86 @@
+import java.util.*;
+public class LLQueue {
+	class Node{
+		int data;
+		Node next;
+	}
+	public Node front = null,rear = null;
+	void Enqueue(int data)
+	{
+		Node newNode = new Node();
+newNode.data = data;
+newNode.next = null;
+		if(rear == null)
+		{
+			front = newNode;
+rear = newNode;
+		}
+else
+{
+rear.next = newNode;
+rear = newNode;
+}
+	}
+void Dequeue()
+{
+if(front == null)
+{
+System.out.println("Queue is Empty!!");
+}
+else
+{
+int del = front.data;
+front = front.next;
+System.out.println("Element "+ del +" is deleted.");
+}
+}
+void DisplayQueue()
+{
+if(front == null)
+{
+System.out.println("Queue is Empty!!");
+}
+Node current = front;
+while(current != null)
+{
+System.out.print(current.data+" ");
+current = current.next;
+}
+System.out.println();
+}
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+LLQueue s = new LLQueue();
+		int option,flag = 1;
+		while(flag == 1)
+		{
+			System.out.println("Select Operation:");
+			System.out.println("1.Enque");
+			System.out.println("2.Deque");
+			System.out.println("3.Display Qeque");
+			System.out.println("4.Exit");
+			option = sc.nextInt();
+			switch(option)
+			{
+				case 1:
+					int data;
+					System.out.print("Enter elemented to be added:");
+					data = sc.nextInt();
+s.Enqueue(data);
+					break;
+				case 2:
+					s.Dequeue();
+					break;
+				case 3:
+					s.DisplayQueue();
+					break;
+				case 4:
+					flag = 0;
+					break;
+				default:
+					System.out.println("Invalid option.");
+			}
+		}
+}
+}

@@ -1,0 +1,53 @@
+import java.util.*;
+public class BubbleSort {
+    static void DisplayArr(int arr[],int size)
+    {
+        for(int i = 0; i < size; ++i)
+        {
+            System.out.print(arr[i] + " ");
+        }
+    }
+    static void AcceptArr(int arr[],int size)
+    {
+        Scanner sc = new Scanner(System.in);
+        for(int i = 0; i < size; ++i)
+        {
+            arr[i] = sc.nextInt();
+        }
+    }
+    static void BubbleSorting(int arr[],int size)
+    {
+        boolean sorted = true;
+        for(int i = 0; i < size - 1; ++i)
+        {
+            for(int j = 0; j < size - 1 - i; ++j)
+            {
+                if(arr[j] > arr[j+1])
+                {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    sorted = false ;
+                }    
+            }
+            System.out.println("Pass " + (i + 1) + ":");
+            DisplayArr(arr, size);
+            System.out.println();
+            if(sorted == true)
+                break;
+        }
+        System.out.print("Sorted Array: ");
+        DisplayArr(arr,size);
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int size;
+        System.out.print("Enter number of Elements:");
+        size = sc.nextInt();
+        int[] arr = new int[size];
+        System.out.print("Enter " + size + " ELements:");
+        AcceptArr(arr,size);
+        BubbleSorting(arr,size);
+    }
+}

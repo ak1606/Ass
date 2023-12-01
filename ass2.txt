@@ -1,0 +1,122 @@
+#include <iostream>
+using namespace std;
+int StringLength(char *str)
+{
+   int i = 0;
+   while (*str != '\0')
+   {
+       str++;
+       ++i;
+   }
+   return i;
+}
+void StringCopy(char *str, char *str1)
+{
+   while (*str != '\0')
+   {
+       *str1 = *str;
+       ++str1;
+       ++str;
+   }
+}
+void StringConcatenation(char *str, char *str2)
+{
+   while (*str != '\0')
+   {
+       cout << *str;
+       ++str;
+   }
+   while (*str2 != '\0')
+   {
+       cout << *str2;
+       ++str2;
+   }
+   cout<<endl;
+}
+void StringCompare(char *p, char *q)
+{
+   int i = 0;
+   while (*p == *q && *p != '\0')
+   {
+       p++;
+       q++;
+   }
+   if (*p > *q)
+   {
+       cout << "1st string is greater than 2nd string" << endl;
+   }
+   else if (*p < *q)
+   {
+       cout << "1st string is less than 2nd string" << endl;
+   }
+   else
+   {
+       cout << "\n"
+            << "1st string is equal to 2nd string " << endl;
+   }
+}
+void StringReverse(char *str)
+{
+   int l1 = StringLength(str);
+   char *begin_ptr, *end_ptr, ch;
+   begin_ptr = str;
+   end_ptr = str + l1 - 1;
+   for (int i = 0; i < (l1 - 1) / 2; i++)
+   {
+       ch = *end_ptr;
+       *end_ptr = *begin_ptr;
+       *begin_ptr = ch;
+       begin_ptr++;
+       end_ptr--;
+   }
+}
+int main()
+{
+   char str[50];
+   int n, flag;
+   cout << "Enter a String:";
+   cin.getline(str, 50);
+   int l = StringLength(str);
+   char str1[l], str2[50], str3[50],temp[l];
+   StringCopy(str,temp);
+   do
+   {
+       cout << "Choose a Operation:" << endl;
+       cout << "1.String Length\n2.String Copy" << endl;
+       cout << "3.String Concatenation\n4.String Compare\n5.String Reverse" << endl;
+       cin >> n;
+       switch (n)
+       {
+       case 1:
+           cout << "The length of the entered String is " << StringLength(str) << endl;
+           break;
+       case 2:
+           StringCopy(str, str1);
+           cout << "The copied String is " << str1 << endl;
+           break;
+       case 3:
+           cin.ignore();
+           cout << "Enter the Second String:";
+           cin.getline(str2, 50);
+           cout << "The Concatenation of two Strings is ";
+           StringConcatenation(str, str2);
+           break;
+       case 4:
+           cin.ignore();
+           cout << "Enter the Second String:";
+           cin.getline(str3, 50);
+           StringCompare(str, str3);
+           break;
+       case 5:
+           StringReverse(str);
+           cout << "The Reverse of the String entered is " << str << endl;
+           break;
+       default:
+           cout << "Enter a valid Operation number" << endl;
+       }
+       cout << "To CONTINUE press 1,for EXIT press 0:";
+       cin >> flag;
+       StringCopy(temp,str);
+   } while (flag);
+   cout<<"Thank you"<<endl;
+}

@@ -1,0 +1,106 @@
+import java.util.*;
+public class PizzaParlor {
+	private static int size = 0,front = -1 ,rear = -1;
+	private static final int CAPACITY = 5;
+	private static int[] queueRep = new int[CAPACITY];
+	static int AcceptOrder(int data)
+	{
+		if(size == CAPACITY)
+		{
+			System.out.println("Order Capacity FULL,Please WAIT!!!");		
+		}
+		if(size != CAPACITY)
+		{
+			if(front == -1 && rear == - 1)
+			{
+				++front;
+				rear = (rear + 1) % CAPACITY;
+				queueRep[rear] = data;
+				++size;
+				++data;
+			}
+			else
+			{
+				rear = (rear + 1) % CAPACITY;
+				queueRep[rear] = data;
+				++size;
+				++data;
+			}			
+		}
+		return data;
+	}
+	static void ServeOrder()
+	{
+		if(size == 0 )
+		{
+			System.out.println("NO Orders,WELCOME PLEASE ORDER!!");
+		}
+		else
+		{
+			front = (front + 1) % CAPACITY;
+			--size;
+		}
+	}
+	static void DisplayOrder()
+	{
+		if(front == - 1 && rear == -1 || size == 0)
+		{
+			System.out.println("NO Orders,WELCOME PLEASE ORDER!!");
+		}
+		if(size != 0)
+		{
+			if(rear < front)
+			{
+				for(int i = front; i < CAPACITY; ++i)
+				{
+					System.out.print(queueRep[i] + " ");		
+				}
+				for(int j = 0; j <= rear; ++j)
+				{
+					System.out.print(queueRep[j] + " ");		
+				}
+				System.out.println();
+			}
+			else if(front < rear || front == rear)
+			{
+				for(int i = front; i <= rear; ++i)
+				{
+					System.out.print(queueRep[i] + " ");		
+				}
+				System.out.println();
+			}			
+		}
+	}
+	public static void main(String[] args)
+	{
+		int key,option,flag = 1,data = 1;
+		Scanner sc = new Scanner(System.in);
+		do
+		{
+			System.out.println("Select Operation:");
+			System.out.println("1.Order");
+			System.out.println("2.Serve");
+			System.out.println("3.Display Order Qeque");
+			System.out.println("4.Exit");
+			option = sc.nextInt();
+			switch(option)
+			{
+				case 1:
+					data = AcceptOrder(data);
+					break;
+				case 2:
+					ServeOrder();
+					break;
+				case 3:
+					DisplayOrder();
+					break;
+				case 4:
+					flag = 0;
+					break;
+				default:
+					System.out.println("Invalid Request.");
+			}
+			
+		}while(flag == 1);
+	}
+}

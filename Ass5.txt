@@ -1,0 +1,173 @@
+import java.util.Scanner;
+
+class Employee {
+   int empId;
+   String empName;
+   double empSalary;
+   String empDepartment;
+   Employee next;
+
+   Employee(int id, String name, double salary, String department) {
+       empId = id;
+       empName = name;
+       empSalary = salary;
+       empDepartment = department;
+       next = null;
+   }
+}
+class EmployeeLinkedList {
+   Employee head;
+
+   EmployeeLinkedList() {
+       head = null;
+   }
+   void insert(Employee newEmployee) {
+       if (head == null) {
+           head = newEmployee;
+       } else {
+           Employee current = head;
+           while (current.next != null) {
+               current = current.next;
+           }
+           current.next = newEmployee;
+       }
+   }
+   void delete(int id) {
+       if (head == null) {
+           System.out.println("List is empty. Deletion failed.");
+           return;
+       }
+
+       if (head.empId == id) {
+           head = head.next;
+           return;
+       }
+
+       Employee current = head;
+       Employee prev = null;
+       while (current != null && current.empId != id) {
+           prev = current;
+           current = current.next;
+       }
+
+       if (current == null) {
+           System.out.println("Employee with ID " + id + " not found.");
+       } else {
+           prev.next = current.next;
+           System.out.println("Employee with ID " + id + " deleted.");
+       }
+   }
+
+
+   void search(int id) {
+       Employee current = head;
+       while (current != null) {
+           if (current.empId == id) {
+               System.out.println("Employee found:\nID = " + current.empId + "\nName = " + current.empName);
+               System.out.println("Salary = " + current.empSalary + "\nDepartment = " + current.empDepartment);
+               return;
+           }
+           current = current.next;
+       }
+       System.out.println("Employee with ID " + id + " not found.");
+   }
+
+   void modify(int id, String newName,double newSalary,String newDepartment) {
+       Employee current = head;
+       while (current != null) {
+           if (current.empId == id) {
+               current.empName = newName;
+               current.empSalary = newSalary;
+               current.empDepartment = newDepartment;
+               System.out.println("Employee with ID " + id + " modified.");
+               return;
+           }
+           current = current.next;
+       }
+       System.out.println("Employee with ID " + id + " not found.");
+   }
+
+
+   void display() {
+       Employee current = head;
+       System.out.println("Employee List:");
+       while (current != null) {
+           System.out.println("ID: " + current.empId + ", Name: " + current.empName);
+           current = current.next;
+       }
+   }
+}
+
+public class EmployeeLinkedListDemo {
+   public static void main(String[] args) {
+       Scanner sc = new Scanner(System.in);
+       EmployeeLinkedList empList = new EmployeeLinkedList();
+
+       while (true) {
+           System.out.println("\nMenu:");
+           System.out.println("1. Insert an Employee");
+           System.out.println("2. Delete an Employee by ID");
+           System.out.println("3. Search for an Employee by ID");
+           System.out.println("4. Modify an Employee's Name by ID");
+           System.out.println("5. Display Employee List");
+           System.out.println("6. Exit");
+           System.out.print("Enter your choice: ");
+
+           int choice = sc.nextInt();
+           sc.nextLine();
+
+           switch (choice) {
+               case 1:
+                   System.out.print("Enter Employee ID: ");
+                   int id = sc.nextInt();
+                   sc.nextLine();
+                   System.out.print("Enter Employee Name: ");
+                   String name = sc.nextLine();
+                   System.out.print("Enter Employee Salary: ");
+                   double salary = sc.nextDouble();
+                   sc.nextLine();
+                   System.out.print("Enter Employee Department: ");
+                   String department = sc.nextLine();
+                   Employee newEmployee = new Employee(id, name, salary, department);
+                   empList.insert(newEmployee);
+                   break;
+                case 2:
+                   System.out.print("Enter Employee ID to delete: ");
+                   int deleteId = sc.nextInt();
+                   empList.delete(deleteId);
+                   break;
+
+               case 3:
+                   System.out.print("Enter Employee ID to search: ");
+                   int searchId = sc.nextInt();
+                   empList.search(searchId);
+                   break;
+
+               case 4:
+                   System.out.print("Enter Employee ID to modify: ");
+                   int modifyId = sc.nextInt();
+                   sc.nextLine();
+                   System.out.print("Enter New Employee Name: ");
+                   String newName = sc.nextLine();
+                   System.out.print("Enter New Employee Salary: ");
+                   double newSalary = sc.nextDouble();
+                   sc.nextLine();
+                   System.out.print("Enter New Employee Department: ");
+                   String newDepartment = sc.nextLine();
+                   empList.modify(modifyId, newName, newSalary, newDepartment);
+                   break;
+
+               case 5:
+                   empList.display();
+                   break;
+
+               case 6:
+                   sc.close();
+                   System.exit(0);
+
+               default:
+                   System.out.println("Invalid choice. Please try again.");
+           }
+       }
+   }
+}
