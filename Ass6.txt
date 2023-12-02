@@ -1,0 +1,83 @@
+
+interface stack{
+    void push(int data);
+    void pop();
+    int size();
+    boolean isEmpty();
+    int peek();
+}	
+
+class StackList implements stack{
+    private node top;
+    private int size;
+
+    public StackList(){
+        top = new node(0,null);
+        size = 0;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public boolean isEmpty(){
+        return size==0;
+    }
+
+    public void push(int data){
+        if(isEmpty()) top.data = data;
+        else{
+            top = new node(data , top);
+            
+        }
+        size++;
+    }
+
+    public void pop(){
+        if(isEmpty()) throw new IllegalStateException("Stack is empty");
+        top = top.prev;
+        size--;
+    }
+
+    public int peek(){
+        return top.data;
+    }
+
+    public void display(){
+        node temp = top;
+        for(int i=0;i<size;i++){
+            System.out.println(temp.data);
+            temp = temp.prev;
+        }
+    }
+
+    private class node{
+        private int data;
+        private node prev;
+
+        public node(int data,node prev){
+            this.data = data;
+            this.prev = prev;
+        }
+    }
+}
+
+public class Assignment7{
+    public static void main(String[] args){
+        System.out.println("Assignment 7 --> ");
+
+        StackList s1 = new StackList();
+        s1.push(12);
+        s1.push(23);
+        s1.push(13);
+        s1.push(45);
+        s1.push(50);
+        System.out.println(s1.peek());
+        System.out.println("Size of the stack : "+s1.size());
+        s1.pop();
+        System.out.println(s1.peek());
+        s1.pop();
+        System.out.println("Display the whole stack : ");
+        s1.display();
+    }
+}
